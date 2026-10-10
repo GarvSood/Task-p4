@@ -1,33 +1,27 @@
+import "./Contact.css";
+
 function Contact() {
   return (
-    <section id="contact" className="py-16 px-6 bg-white">
-      <div className="max-w-4xl mx-auto text-center">
+    <section id="contact" className="contact-section">
+      <div className="contact-container">
+        <h2>Contact</h2>
 
-        <h2 className="text-4xl font-bold mb-10">
-          Contact
-        </h2>
-
-        <div className="space-y-4 text-lg">
+        <div className="contact-details">
           <p>
-            <strong>Email:</strong>{" "}
-            <a
-              href="mailto:garv9028.ai25@chitkara.edu.in"
-              className="text-blue-600 hover:underline"
-            >
+            <strong>Email: </strong>
+            <a href="mailto:garv9028.ai25@chitkara.edu.in">
               garv9028.ai25@chitkara.edu.in
             </a>
           </p>
 
-          
-
           <p>
-            <strong>Location:</strong> India
+            <strong>Location: </strong>
+            India
           </p>
         </div>
-
       </div>
     </section>
-  )
+  );
 }
 
-export default Contact
+export default Contact;

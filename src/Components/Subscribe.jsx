@@ -1,73 +1,69 @@
-function Subscribe() {
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+import { useState } from "react";
+import "./Subscribe.css";
 
-    const email = event.target.email.value
+function Subscribe() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+
+    if (!email.trim()) {
+      setMessage("Please enter your email address.");
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:3000/subscribe", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email })
-      })
+        body: JSON.stringify({ email }),
+      });
 
-      const data = await response.json()
-
-      if (response.ok) {
-        document.getElementById("subscribe-message").textContent =
-          "Successfully subscribed!"
-
-        event.target.reset()
-      } else {
-        document.getElementById("subscribe-message").textContent =
-          data.message || "Something went wrong."
+      if (!response.ok) {
+        throw new Error("Subscription failed");
       }
+
+      setMessage("Thanks for subscribing!");
+      setEmail("");
     } catch (error) {
-      document.getElementById("subscribe-message").textContent =
-        "Unable to connect to the server."
+      console.error("Subscription error:", error);
+      setMessage("Unable to subscribe right now. Please try again.");
     }
-  }
+  };
 
   return (
-    <section
-      id="subscribe"
-      className="py-12 px-6 bg-gray-900 text-white"
-    >
-      <div className="max-w-2xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-4">
-          Subscribe
-        </h2>
+    <section id="subscribe" className="subscribe-section">
+      <div className="subscribe-container">
+        <h2>Subscribe</h2>
 
-        <p className="text-lg mb-6">
+        <p className="subscribe-description">
           Sign up for my daily insider.
         </p>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col sm:flex-row gap-3 justify-center"
-        >
+        <form className="subscribe-form" onSubmit={handleSubscribe}>
           <input
             type="email"
-            name="email"
-            placeholder="Enter your email"
+            placeholder="Enter your email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            aria-label="Email address"
             required
-            className="px-4 py-3 rounded-lg text-black w-full sm:w-80"
           />
 
-          <button
-            type="submit"
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >
-            Subscribe
-          </button>
+          <button type="submit">Subscribe</button>
         </form>
 
-        <p id="subscribe-message" className="mt-4"></p>
+        {message && (
+          <p className="subscribe-message" role="status">
+            {message}
+          </p>
+        )}
       </div>
     </section>
-  )
+  );
 }
 
-export default Subscribe
+export default Subscribe;
