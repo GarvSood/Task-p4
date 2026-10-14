@@ -73,18 +73,12 @@ function Navbar() {
         </form>
 
         {/* Post button */}
-        <Link
-          to="/"
-          onClick={() => {
-            setSearch("projects");
-            setSearchMessage(
-              "Use the search box to find sections on this page."
-            );
-          }}
-          className="rounded-md border border-gray-300 px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-100"
-        >
-          Post
-        </Link>
+<Link
+  to="/post"
+  className="rounded-md border border-gray-300 px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-100"
+>
+  Post
+</Link>
 
         {/* Login button */}
         <Link
